@@ -1,0 +1,16 @@
+# Environment
+.env
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
+.claude/
