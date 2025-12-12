@@ -1,16 +1,35 @@
 import schedule
 import time
+import json
+import os
 from datetime import datetime
 from news_scraper import NewsScraper
 from insight_generator import InsightGenerator
 from threads_poster import ThreadsPoster
+from config import Config
 
 class ThreadsAgent:
     def __init__(self):
         self.scraper = NewsScraper()
         self.generator = InsightGenerator()
         self.poster = ThreadsPoster()
-        self.posted_links = set()  # Track posted articles
+        self.posted_links_file = Config.POSTED_LINKS_FILE
+        self.posted_links = self._load_posted_links()
+
+    def _load_posted_links(self):
+        """Load previously posted links from file"""
+        if os.path.exists(self.posted_links_file):
+            try:
+                with open(self.posted_links_file, 'r') as f:
+                    return set(json.load(f))
+            except (json.JSONDecodeError, IOError):
+                return set()
+        return set()
+
+    def _save_posted_links(self):
+        """Save posted links to file"""
+        with open(self.posted_links_file, 'w') as f:
+            json.dump(list(self.posted_links), f, indent=2)
 
     def run_daily_post(self):
         """Main function to create and post daily content"""
@@ -67,6 +86,8 @@ class ThreadsAgent:
             print(f"Successfully posted!")
             print(f"   Thread ID: {result['thread_id']}")
             self.posted_links.add(article['link'])
+            self._save_posted_links()  # Persist to file
+            print(f"   Saved to posted links ({len(self.posted_links)} total)")
         else:
             print(f"Failed to post: {result['error']}")
 

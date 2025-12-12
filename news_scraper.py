@@ -9,6 +9,7 @@ class NewsScraper:
         self.keywords = Config.KEYWORDS
         self.australian_indicators = Config.AUSTRALIAN_INDICATORS
         self.relevance_signals = Config.RELEVANCE_SIGNALS
+        self.us_political_indicators = Config.US_POLITICAL_INDICATORS
 
     def calculate_relevance_score(self, article_text):
         """Score article relevance based on Australian context and strategic signals"""
@@ -29,6 +30,12 @@ class NewsScraper:
         keyword_matches = sum(1 for keyword in self.keywords
                              if keyword.lower() in text_lower)
         score += keyword_matches
+
+        # US political content penalty (-5 points per match, unless Australian context)
+        if australian_matches == 0:
+            us_political_matches = sum(1 for indicator in self.us_political_indicators
+                                      if indicator.lower() in text_lower)
+            score -= us_political_matches * 5
 
         return score
 

@@ -48,3 +48,13 @@ class Config:
         'government', 'regulation', 'ROI', 'business case',
         'skills assessment', 'alternative pathways'
     ]
+
+    # US-centric indicators (penalize unless Australian context present)
+    US_POLITICAL_INDICATORS = [
+        'trump', 'biden', 'white house', 'congress', 'senate',
+        'washington', 'federal government', 'executive order',
+        'republican', 'democrat', 'us government'
+    ]
+
+    # File to track posted articles
+    POSTED_LINKS_FILE = 'posted_links.json'
