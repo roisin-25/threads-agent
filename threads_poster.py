@@ -2,7 +2,6 @@ import requests
 import time
 from config import Config
 
-
 class ThreadsPoster:
     def __init__(self):
         self.access_token = Config.THREADS_ACCESS_TOKEN

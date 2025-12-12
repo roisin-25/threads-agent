@@ -1,22 +1,9 @@
 import schedule
 import time
-import logging
-import sys
 from datetime import datetime
 from news_scraper import NewsScraper
 from insight_generator import InsightGenerator
 from threads_poster import ThreadsPoster
-
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.StreamHandler(sys.stdout),  # Console output (captured by GitHub Actions)
-    ]
-)
-logger = logging.getLogger(__name__)
-
 
 class ThreadsAgent:
     def __init__(self):
@@ -27,42 +14,63 @@ class ThreadsAgent:
 
     def run_daily_post(self):
         """Main function to create and post daily content"""
-        logger.info("Starting daily post generation...")
+        print(f"\n{'='*60}")
+        print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M')}] Starting daily post generation...")
+        print(f"{'='*60}\n")
 
         # 1. Fetch latest news
+        print("Fetching latest news...")
         articles = self.scraper.fetch_latest_news(hours_back=24)
 
         if not articles:
-            logger.warning("No relevant articles found")
+            print("No relevant articles found")
             return
+
+        print(f"Found {len(articles)} relevant articles\n")
 
         # 2. Filter out already posted articles
         new_articles = [a for a in articles if a['link'] not in self.posted_links]
 
         if not new_articles:
-            logger.info("All recent articles already posted")
+            print("All recent articles already posted")
             return
 
-        # 3. Select most recent article
+        # 3. Select most relevant article
         article = new_articles[0]
-        logger.info(f"Selected article: {article['title']}")
+        print(f"Selected article:")
+        print(f"   Title: {article['title']}")
+        print(f"   Source: {article['source']}")
+        print(f"   Relevance Score: {article.get('relevance_score', 0)}")
+        print(f"   Link: {article['link']}\n")
 
         # 4. Generate insight
+        print("Generating insight with Neoma's voice...")
         try:
             post_content = self.generator.generate_insight(article)
-            logger.info(f"Generated post:\n{post_content}")
+
+            print(f"\n{'-'*60}")
+            print("Generated Post:")
+            print(f"{'-'*60}")
+            print(post_content)
+            print(f"{'-'*60}")
+            print(f"Character count: {len(post_content)}/490\n")
+
         except Exception as e:
-            logger.error(f"Error generating insight: {e}")
+            print(f"Error generating insight: {e}")
             return
 
         # 5. Post to Threads
+        print("Posting to Threads...")
         result = self.poster.create_post(post_content)
 
         if result['success']:
-            logger.info(f"Successfully posted! Thread ID: {result['thread_id']}")
+            print(f"Successfully posted!")
+            print(f"   Thread ID: {result['thread_id']}")
             self.posted_links.add(article['link'])
         else:
-            logger.error(f"Failed to post: {result['error']}")
+            print(f"Failed to post: {result['error']}")
+
+        print(f"\n{'='*60}\n")
 
     def start_scheduler(self):
         """Start the daily scheduler"""
@@ -70,18 +78,20 @@ class ThreadsAgent:
         schedule.every().day.at("09:00").do(self.run_daily_post)
         schedule.every().day.at("14:00").do(self.run_daily_post)
 
-        logger.info("Threads Agent started. Scheduled for 9:00 AM and 2:00 PM daily...")
-        logger.info("Press Ctrl+C to stop")
+        print("Neoma Threads Agent Started")
+        print("Scheduled: Daily at 9:00 AM and 2:00 PM")
+        print("Press Ctrl+C to stop\n")
 
-        # Run immediately on start (optional)
-        # self.run_daily_post()
+        # Run immediately on start (optional - comment out if you want to wait for scheduled time)
+        print("Running initial post now...")
+        self.run_daily_post()
 
         while True:
             schedule.run_pending()
             time.sleep(60)  # Check every minute
 
-
 if __name__ == "__main__":
+    import sys
     agent = ThreadsAgent()
 
     if "--once" in sys.argv:
