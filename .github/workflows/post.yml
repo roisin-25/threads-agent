@@ -2,10 +2,10 @@ name: Post to Threads
 
 on:
   schedule:
-    # 9 AM UTC (adjust for your timezone)
-    - cron: '0 9 * * *'
-    # 2 PM UTC (adjust for your timezone)
-    - cron: '0 14 * * *'
+    # 9 AM Sydney (AEDT UTC+11) = 10 PM UTC previous day
+    - cron: '0 22 * * *'
+    # 2 PM Sydney (AEDT UTC+11) = 3 AM UTC
+    - cron: '0 3 * * *'
   workflow_dispatch: # Allow manual trigger
 
 jobs:
