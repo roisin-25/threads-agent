@@ -69,5 +69,12 @@ class ThreadsAgent:
 
 
 if __name__ == "__main__":
+    import sys
     agent = ThreadsAgent()
-    agent.start_scheduler()
+
+    if "--once" in sys.argv:
+        # Single run mode (for GitHub Actions)
+        agent.run_daily_post()
+    else:
+        # Continuous scheduler mode
+        agent.start_scheduler()
