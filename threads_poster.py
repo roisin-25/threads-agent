@@ -44,7 +44,15 @@ class ThreadsPoster:
             }
 
         except requests.exceptions.RequestException as e:
+            # Try to get more details from the response
+            error_detail = str(e)
+            try:
+                if hasattr(e, 'response') and e.response is not None:
+                    error_json = e.response.json()
+                    error_detail = f"{e} - API Response: {error_json}"
+            except:
+                pass
             return {
                 'success': False,
-                'error': str(e)
+                'error': error_detail
             }
