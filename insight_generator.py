@@ -82,7 +82,8 @@ INSTRUCTIONS:
 6. NO hashtags, NO emojis, NO exclamation marks unless truly warranted
 7. End with a thought-provoking question OR a clear takeaway (not both)
 8. If Australian context is relevant, weave it in naturally
-9. Maximum 440 characters for your insight (leaves room for link)
+9. CRITICAL: Maximum 380 characters. Your post MUST end with a complete thought - never cut off mid-sentence.
+10. Make sure your final sentence is complete and impactful.
 
 Write ONLY the post text - nothing else."""
 
@@ -102,9 +103,23 @@ Write ONLY the post text - nothing else."""
 
         # Ensure we're under 490 characters total
         if len(full_post) > 490:
-            # Trim the insight, keep the link
-            max_text_length = 485 - len(article['link']) - 2
-            post_text = post_text[:max_text_length].rsplit(' ', 1)[0] + "..."
+            # Calculate max text length (leave room for link + newlines)
+            max_text_length = 485 - len(article['link']) - 4
+
+            # Try to find a complete sentence ending
+            truncated = post_text[:max_text_length]
+
+            # Look for the last sentence-ending punctuation
+            last_period = truncated.rfind('.')
+            last_question = truncated.rfind('?')
+            last_sentence_end = max(last_period, last_question)
+
+            if last_sentence_end > len(truncated) * 0.5:  # Only use if we keep at least half
+                post_text = truncated[:last_sentence_end + 1]
+            else:
+                # Fall back to word boundary with ellipsis
+                post_text = truncated.rsplit(' ', 1)[0] + "..."
+
             full_post = f"{post_text}\n\n{article['link']}"
 
         return full_post

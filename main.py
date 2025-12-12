@@ -20,7 +20,7 @@ class ThreadsAgent:
 
         # 1. Fetch latest news
         print("Fetching latest news...")
-        articles = self.scraper.fetch_latest_news(hours_back=24)
+        articles = self.scraper.fetch_latest_news(hours_back=48)
 
         if not articles:
             print("No relevant articles found")
