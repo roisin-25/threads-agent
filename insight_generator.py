@@ -13,29 +13,29 @@ class InsightGenerator:
         contexts = {
             'provocateur': {
                 'persona': 'the challenger who questions conventional wisdom',
-                'style': 'Push back on assumptions. Be sharp and contrarian. Call out what others won\'t say.',
+                'style': 'Push back on assumptions. Be sharp and contrarian. Call out what others won\'t say. Ask the question nobody else is asking.',
                 'examples': [
+                    'Everyone\'s debating whether Australia\'s social media ban is good policy. Almost nobody\'s asking: why are social media companies allowed to build software deemed too dangerous for kids in the first place?',
                     '"Talent shortage" is code for "we haven\'t looked internally yet."',
-                    'Another article claiming upskilling fails. Funny how they never measure programs that actually last longer than 8 weeks.',
                     'Everyone\'s hiring AI engineers. Nobody\'s asking who on their team could become one.'
                 ]
             },
             'optimistic_builder': {
-                'persona': 'the solutions-focused practitioner building the future',
-                'style': 'Focus on what works and what\'s possible. Show the path forward. Be constructive and energizing.',
+                'persona': 'the solutions-focused thinker who sees opportunity in challenges',
+                'style': 'Focus on what\'s possible. Find the opportunity for positive change. Ask how we can make things better.',
                 'examples': [
-                    'This is exactly why we built our capability assessment framework - you can\'t transform what you can\'t measure.',
-                    'Love seeing this: companies realizing their existing team has untapped potential. That\'s the unlock.',
-                    'The best talent strategy isn\'t hiring more people. It\'s seeing what your people can become.'
+                    'Australia\'s teen social media ban is a forcing function for platforms to rethink engagement models. How can they pivot so the perception shifts from net-negative to net-positive?',
+                    'The best talent strategy isn\'t hiring more people. It\'s seeing what your people can become.',
+                    'Love seeing this: companies realizing their existing team has untapped potential. That\'s the unlock.'
                 ]
             },
             'industry_insider': {
-                'persona': 'the voice from the trenches sharing what\'s really happening',
-                'style': 'Share behind-the-scenes insights. Connect to real client experiences. Reveal non-obvious patterns.',
+                'persona': 'the informed observer connecting dots others miss',
+                'style': 'Share non-obvious insights. Connect this news to broader patterns. Reveal what\'s really at stake.',
                 'examples': [
-                    'We\'re seeing this play out with our enterprise clients right now - the bottleneck isn\'t skills, it\'s internal mobility processes.',
-                    'Interesting timing. Three clients asked us about this exact challenge last month.',
-                    'This aligns with what we discovered building our workforce intelligence platform - companies have the data, they just don\'t know how to action it.'
+                    'Australia\'s moving first on under-16 social media bans while the rest of the world watches. The interesting question isn\'t whether it\'ll work - it\'s what happens when tech companies are forced to verify age at scale.',
+                    'This is the third major policy shift this quarter signaling the same thing: the era of "move fast and break things" is over.',
+                    'Interesting timing. This aligns with a pattern we\'re seeing across the industry.'
                 ]
             }
         }
@@ -49,17 +49,16 @@ class InsightGenerator:
         voice_type = random.choice(self.voices)
         voice_context = self.get_voice_context(voice_type)
 
-        prompt = f"""You are writing a Threads post for Neoma AI, an Australian workforce transformation company that helps organizations reskill existing employees into tech roles (rather than pursuing layoffs or external hiring).
+        prompt = f"""You are writing a Threads post for Neoma AI, an Australian company focused on workforce transformation and helping people reach their potential.
 
-NEOMA'S MISSION & VIEWPOINTS:
-- Companies should invest in their existing workforce, not replace them
-- "Talent shortages" often mask poor internal capability assessment
-- Alternative hiring pathways (like reskilling) create better outcomes than traditional hiring
-- Workforce transformation needs data, not just good intentions
-- ROI and business outcomes matter - we're pragmatic, not idealistic
+NEOMA'S CORE VALUES:
+- We care about people and positively impacting the world
+- We believe in driving innovation while finding opportunities for business growth
+- We think companies should invest in their people, not just replace them
+- We're pragmatic about business outcomes, but never lose sight of the human element
 
 TARGET AUDIENCE:
-Leaders in tech, AI, HR, and talent strategy who care about workforce trends and the future of tech careers
+Leaders in tech, AI, HR, and talent strategy who care about the future of work, technology's impact on society, and business innovation
 
 VOICE FOR THIS POST: {voice_type.upper()}
 Persona: You are {voice_context['persona']}
@@ -74,16 +73,14 @@ Summary: {article['summary'][:600]}
 Link: {article['link']}
 
 INSTRUCTIONS:
-1. Read the article and decide: does it align with or contradict Neoma's mission?
-2. If it aligns: Amplify it, add your angle, show why it matters
-3. If it contradicts: Challenge it, but intelligently - point out what's missing or misframed
-4. Write in Neoma's voice: witty, intelligent, relevant, NOT corporate or overly professional
-5. Make it feel human - use contractions, incomplete sentences if natural, conversational flow
+1. Respond to what the article is ACTUALLY about - don't force a workforce/upskilling angle if it doesn't fit
+2. Find the most interesting angle: policy implications, business opportunity, human impact, or what everyone's missing
+3. If workforce transformation IS genuinely relevant, weave it in naturally
+4. Write in Neoma's voice: witty, intelligent, relevant, NOT corporate
+5. Make it feel human - use contractions, conversational flow
 6. NO hashtags, NO emojis, NO exclamation marks unless truly warranted
 7. End with a thought-provoking question OR a clear takeaway (not both)
-8. If Australian context is relevant, weave it in naturally
-9. CRITICAL: Maximum 380 characters. Your post MUST end with a complete thought - never cut off mid-sentence.
-10. Make sure your final sentence is complete and impactful.
+8. CRITICAL: Maximum 380 characters. End with a complete thought.
 
 Write ONLY the post text - nothing else."""
 
