@@ -1,5 +1,6 @@
 import anthropic
 import random
+import time
 from config import Config
 
 class InsightGenerator:
@@ -84,11 +85,23 @@ INSTRUCTIONS:
 
 Write ONLY the post text - nothing else."""
 
-        message = self.client.messages.create(
-            model="claude-sonnet-4-20250514",
-            max_tokens=400,
-            messages=[{"role": "user", "content": prompt}]
-        )
+        # Retry up to 3 times for transient API errors
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
+                message = self.client.messages.create(
+                    model="claude-sonnet-4-20250514",
+                    max_tokens=400,
+                    messages=[{"role": "user", "content": prompt}]
+                )
+                break
+            except anthropic.APIStatusError as e:
+                if e.status_code == 529 and attempt < max_retries - 1:
+                    wait_time = (attempt + 1) * 10  # 10s, 20s, 30s
+                    print(f"API overloaded, retrying in {wait_time}s (attempt {attempt + 1}/{max_retries})")
+                    time.sleep(wait_time)
+                else:
+                    raise
 
         post_text = message.content[0].text.strip()
 
