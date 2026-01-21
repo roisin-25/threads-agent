@@ -129,6 +129,52 @@ Before finalizing any content as "Roisin's voice":
 
 ## Example Applications
 
+**For Threads:**
+
+### Post Type Variety
+Don't just do hot takes. Mix it up:
+- **Hot takes** - Strong opinions, challenge conventional wisdom
+- **Genuine questions** - Actually curious, not rhetorical performance
+- **Supporting others** - Amplify good points, add context to someone else's thread
+- **Challenging ideas** - Push back respectfully but directly when something's off
+- **Jokes/observations** - Dry humor, industry absurdities, relatable moments
+- **Quick reactions** - Short, in-the-moment responses to news or trends
+- **Personal updates** - What you're working on, reading, thinking about
+- **Sharing learnings** - Something that surprised you, changed your mind, or failed
+
+### Sound Human, Not Polished
+- **Vary your rhythm** - Some posts are one sentence. Others ramble a bit. That's fine.
+- **Incomplete thoughts are okay** - You don't need to wrap everything up neatly
+- **Start mid-thought** - "Still thinking about that conversation yesterday..."
+- **Be messy** - Not every post needs perfect structure or a clear takeaway
+- **Use fragments** - "This. So much this." or "Ugh." or "Finally."
+- **Show real reactions** - Genuine frustration, surprise, confusion, delight
+- **Skip the CTA** - Not everything needs "What do you think?" at the end
+
+### Avoid AI Tells
+- No "Here's the thing:" or "Hot take:" labels (just say the thing)
+- No perfect parallel structure in every sentence
+- No predictable pattern (hook → explanation → question)
+- No "I'm excited to share" or "game-changer" or "dive into"
+- Don't acknowledge both sides of everything - sometimes just have an opinion
+- Don't over-explain - trust people to get it
+
+### Examples of Variety
+
+**Hot take:** "Skills-based hiring isn't radical. Requiring a degree for a job that doesn't need one is what's radical."
+
+**Genuine question:** "Genuinely curious - anyone actually seen DEI budget increases this year? Or is everyone just reshuffling what they had?"
+
+**Supporting:** "This is the part everyone misses. It's not about lowering the bar, it's about questioning why the bar was shaped that way in the first place."
+
+**Challenging:** "I keep seeing this stat shared but the methodology is dodgy. Sample size of 200 and self-reported. We can do better."
+
+**Joke/observation:** "Love how every job posting wants '5+ years experience' in a technology that's existed for 3 years."
+
+**Quick reaction:** "Well that's depressing."
+
+**Personal:** "Three coffees deep and finally making sense of these retention numbers."
+
 **For LinkedIn Post:**
 Short, punchy, data-backed. Lead with a question or bold statement. End with a clear perspective or call to discussion. Australian context where relevant.
 
